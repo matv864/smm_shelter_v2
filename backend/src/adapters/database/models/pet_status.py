@@ -3,8 +3,8 @@ from sqlalchemy.orm import Mapped
 from .base import Base
 
 
-class Status(Base):
-    __tablename__ = "status"
+class PetStatus(Base):
+    __tablename__ = "petStatus"
 
     name: Mapped[str]
 

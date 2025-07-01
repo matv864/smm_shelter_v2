@@ -11,8 +11,8 @@ from .enums import GenderEnum
 class Pet(Base):
     __tablename__ = "pet"
 
-    status_id: Mapped[str] = mapped_column(ForeignKey("status.id"))
-    status = relationship("Status", lazy="selectin")
+    status_id: Mapped[str] = mapped_column(ForeignKey("petStatus.id"))
+    status = relationship("PetStatus", lazy="selectin")
 
     name: Mapped[str]
 

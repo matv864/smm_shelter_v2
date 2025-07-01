@@ -5,7 +5,7 @@ from .manager import Manager
 from .news import News, NewsContent
 from .pet import Pet, PetContent
 from .pet_type import PetType
-from .status import Status
+from .pet_status import PetStatus
 from .transaction import Transaction, TransactionContent
 
 
@@ -17,6 +17,6 @@ __all__ = [
     "News", "NewsContent",
     "Pet", "PetContent",
     "PetType",
-    "Status",
+    "PetStatus",
     "Transaction", "TransactionContent",
 ]
