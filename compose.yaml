@@ -1,15 +1,15 @@
-name: udom-backend
+name: zooprim-backend
 
 services:
   backend:
     container_name: backend
     restart: always
     build: backend/
-    # healthcheck:
-    #   test: curl -sSf http://localhost:8000/healthcheck
-    #   interval: 60s
-    #   start_period: 1s
-    #   timeout: 600s
+    healthcheck:
+      test: curl -sSf http://localhost:8000/healthcheck
+      interval: 60s
+      start_period: 1s
+      timeout: 600s
     depends_on:
       s3:
         condition: service_healthy
