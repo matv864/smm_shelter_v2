@@ -44,8 +44,8 @@ services:
     image: postgres:latest
     env_file: .env
     volumes:
-      - ./dumps/dump.sql:/docker-entrypoint-initdb.d/testing.sql
-      - postgres-data:/var/lib/postgresql/data
+      - ./dumps/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      # - postgres-data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -d udom
       interval: 60s
@@ -66,8 +66,8 @@ services:
     env_file: .env
     command: |
       server --console-address ":9001" /data
-    volumes:
-      - s3-data:/data
+    # volumes:
+    #   - s3-data:/data
     healthcheck:
       test: mc ready local
       interval: 60s
@@ -100,8 +100,8 @@ services:
       exit 0;
       "
 
-volumes:
-  s3-data:
-    name: s3-data
-  postgres-data:
-    name: postgres-data
+# volumes:
+#   s3-data:
+#     name: s3-data
+#   postgres-data:
+#     name: postgres-data

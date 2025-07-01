@@ -3,11 +3,22 @@ from fastadmin import WidgetType, register
 from src.adapters.database.models import Manager
 from src.adapters.database.repositories import ManagerRepository
 from src.admin.override_fastadmin import CustomModelAdmin
+from src.schemas.admin.manager import (
+    ManagersCreate,
+    ManagersUpdate,
+    ManagersGet,
+    ManagersList,
+)
 
 
 @register(Manager)
 class ManagerAdmin(CustomModelAdmin):
     Manager.__name__ = verbose_name = verbose_name_plural = "Менеджеры"
+    
+    schemaCreate = ManagersCreate
+    schemaUpdate = ManagersUpdate
+    schemaGet = ManagersGet
+    schemaList = ManagersList
 
     model_repository = ManagerRepository
 
