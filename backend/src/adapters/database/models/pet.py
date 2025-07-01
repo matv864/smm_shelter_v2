@@ -1,8 +1,7 @@
 from datetime import date
 
-from sqlalchemy import ForeignKey, ARRAY, String
+from sqlalchemy import ARRAY, ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import Text
 
 from .base import Base, BaseContent
 from .enums import GenderEnum
@@ -24,14 +23,8 @@ class Pet(Base):
 
     description: Mapped[str] = mapped_column(Text, nullable=True)
 
-    year_birth: Mapped[date] = mapped_column(
-        nullable=True,
-        default=date.today
-    )
-    in_shelter_from: Mapped[date] = mapped_column(
-        nullable=True,
-        default=date.today
-    )
+    year_birth: Mapped[date] = mapped_column(nullable=True, default=date.today)
+    in_shelter_from: Mapped[date] = mapped_column(nullable=True, default=date.today)
 
     contents: Mapped[list["PetContent"]] = relationship(
         back_populates="pet", lazy="selectin", cascade="all, delete-orphan"
@@ -49,4 +42,3 @@ class PetContent(BaseContent):
     __tablename__ = "petContent"
     pet_id: Mapped[int] = mapped_column(ForeignKey("pet.id"))
     pet = relationship("Pet", back_populates="contents", lazy="selectin")
-

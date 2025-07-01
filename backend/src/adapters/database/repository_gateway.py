@@ -1,17 +1,17 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.adapters.database.repositories import (
-    ArticleRepository,
     ArticleContentRepository,
+    ArticleRepository,
     ManagerRepository,
-    NewsRepository,
     NewsContentRepository,
-    PetRepository,
+    NewsRepository,
     PetContentRepository,
-    PetTypeRepository,
+    PetRepository,
     PetStatusRepository,
-    TransactionRepository,
+    PetTypeRepository,
     TransactionContentRepository,
+    TransactionRepository,
 )
 
 

@@ -14,6 +14,5 @@ class Manager(Base):
     email: Mapped[str] = mapped_column(String(255), nullable=True)
     password: Mapped[str] = mapped_column(String(60))
 
-
     def __str__(self):
         return f"{self.first_name} {self.second_name}"

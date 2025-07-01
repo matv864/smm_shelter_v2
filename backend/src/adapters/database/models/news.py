@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import BIGINT, TIMESTAMP, String, ForeignKey
+from sqlalchemy import BIGINT, TIMESTAMP, ForeignKey, String
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -23,9 +23,8 @@ class News(Base):
     contents: Mapped[list["NewsContent"]] = relationship(
         back_populates="news", lazy="selectin", cascade="all, delete-orphan"
     )
-    
-    images: Mapped[list[str]] = mapped_column(ARRAY(String), nullable=True)
 
+    images: Mapped[list[str]] = mapped_column(ARRAY(String), nullable=True)
 
     def __str__(self):
         return f"{self.title}"
@@ -35,7 +34,3 @@ class NewsContent(BaseContent):
     __tablename__ = "newsContents"
     news_id: Mapped[int] = mapped_column(ForeignKey("news.id"))
     news = relationship("News", back_populates="contents", lazy="selectin")
-
-
-
-
