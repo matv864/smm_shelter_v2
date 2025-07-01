@@ -14,7 +14,7 @@ from src.schemas.admin.manager import (
 @register(Manager)
 class ManagerAdmin(CustomModelAdmin):
     Manager.__name__ = verbose_name = verbose_name_plural = "Менеджеры"
-    
+
     schemaCreate = ManagersCreate
     schemaUpdate = ManagersUpdate
     schemaGet = ManagersGet

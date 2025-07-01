@@ -12,7 +12,7 @@ class Transaction(Base):
 
     date_of_payment: Mapped[date] = mapped_column(default=date.today())
 
-    amount: Mapped[str]
+    amount: Mapped[int]
     sender_receiver: Mapped[str] = mapped_column(nullable=True, default=None)
     comment: Mapped[str] = mapped_column(Text, nullable=True, default=None)
 

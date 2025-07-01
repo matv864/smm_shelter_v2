@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import BIGINT, TIMESTAMP, ForeignKey, String
+from sqlalchemy import TIMESTAMP, ForeignKey, String
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -11,7 +11,6 @@ from .base import Base, BaseContent
 
 class News(Base):
     __tablename__ = "news"
-    id: Mapped[int] = mapped_column(BIGINT, primary_key=True)
 
     title: Mapped[str] = mapped_column(String(50))
     text: Mapped[str]
