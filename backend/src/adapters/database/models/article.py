@@ -14,6 +14,8 @@ class Article(Base):
 
     title: Mapped[str] = mapped_column(String(50))
     text: Mapped[str]
+    
+    pet_id: Mapped[int] = mapped_column(ForeignKey("pet.id"))
 
     publish_date: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True), default=utc_signed_now

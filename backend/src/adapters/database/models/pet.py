@@ -1,4 +1,3 @@
-from uuid import UUID, uuid4
 from datetime import date
 
 from sqlalchemy import ForeignKey, ARRAY, String
@@ -12,10 +11,6 @@ from .enums import GenderEnum
 class Pet(Base):
     __tablename__ = "pet"
 
-    id: Mapped[UUID] = mapped_column(
-        primary_key=True,
-        default=uuid4
-    )
     status_id: Mapped[str] = mapped_column(ForeignKey("status.id"))
     status = relationship("Status", lazy="selectin")
 
@@ -44,11 +39,7 @@ class Pet(Base):
 
     images: Mapped[list[str]] = mapped_column(ARRAY(String), nullable=True)
 
-    article = relationship(
-        "Article",
-        back_populates="pet",
-        lazy="selectin"
-    )
+    articles = relationship("Article", lazy="selectin", cascade="all, delete-orphan")
 
     def __str__(self):
         return f"{self.name}"

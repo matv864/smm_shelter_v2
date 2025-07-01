@@ -1,4 +1,3 @@
-from uuid import UUID, uuid4
 from datetime import date
 
 from sqlalchemy import Text, String, ForeignKey
@@ -11,16 +10,11 @@ from .base import Base, BaseContent
 class Transaction(Base):
     __tablename__ = "transaction"
 
-    id: Mapped[UUID] = mapped_column(
-        primary_key=True,
-        default=uuid4
-    )
-
     date_of_payment: Mapped[date] = mapped_column(default=date.today())
 
     amount: Mapped[str]
-    sender_receiver: Mapped[str | None] = mapped_column(default=None)
-    comment: Mapped[str | None] = mapped_column(Text, default=None)
+    sender_receiver: Mapped[str] = mapped_column(nullable=True, default=None)
+    comment: Mapped[str] = mapped_column(Text, nullable=True, default=None)
     
     contents: Mapped[list["TransactionContent"]] = relationship(
         back_populates="transaction", lazy="selectin", cascade="all, delete-orphan"
