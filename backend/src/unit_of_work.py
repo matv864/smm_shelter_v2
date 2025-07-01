@@ -4,11 +4,10 @@ from src.adapters.database.repository_gateway import RepositoriesGateway
 from src.adapters.database.session import async_session_maker
 from src.adapters.filestorage.repository import FileStorageRepository
 from src.adapters.filestorage.session import s3_session_factory
-from src.utils.unit_of_work import UnitOfWorkProtocol
 
 _sentiel = object()
 
-class UnitOfWork(UnitOfWorkProtocol):
+class UnitOfWork:
     file_storage = _sentiel
     repositories = _sentiel
 
