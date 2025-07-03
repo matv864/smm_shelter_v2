@@ -26,8 +26,7 @@ class SQLAlchemyRepository(AbstractRepository):
 
     async def add_one(self, **data):
         stmt = insert(self.model).values(**data).returning(self.model)
-        res = await self.session.execute(stmt)
-        return res.scalar_one()
+
         try:
             res = await self.session.execute(stmt)
             return res.scalar_one()
