@@ -38,6 +38,8 @@ class NewsAdmin(CustomModelAdmin):
         "title",
         "text",
     )
+    
+    readonly_fields = ("publish_date",)
 
     fieldsets = (
         (
