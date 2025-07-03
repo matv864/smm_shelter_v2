@@ -3,4 +3,5 @@
 # управление менеджерами
 import src.admin.models.manager
 import src.admin.models.news
+import src.admin.models.pet
 import src.admin.models.transaction
