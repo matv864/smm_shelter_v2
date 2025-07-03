@@ -153,7 +153,7 @@ ALTER SEQUENCE public.manager_id_seq OWNED BY public.manager.id;
 --
 
 CREATE TABLE public.news (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     title character varying(50) NOT NULL,
     text character varying NOT NULL,
     publish_date timestamp with time zone NOT NULL,
@@ -168,7 +168,7 @@ ALTER TABLE public.news OWNER TO "user";
 --
 
 CREATE TABLE public."newsContents" (
-    news_id bigint NOT NULL,
+    news_id integer NOT NULL,
     id bigint NOT NULL,
     name character varying(50) NOT NULL,
     uri character varying NOT NULL,
@@ -233,8 +233,8 @@ CREATE TABLE public.pet (
     sterilized boolean NOT NULL,
     type_id integer NOT NULL,
     description text,
-    year_birth date,
-    in_shelter_from date,
+    year_birth integer,
+    in_shelter_from timestamp without time zone,
     images character varying[],
     id integer NOT NULL
 );
@@ -375,12 +375,13 @@ ALTER SEQUENCE public.pet_id_seq OWNED BY public.pet.id;
 --
 
 CREATE TABLE public.transaction (
-    date_of_payment date NOT NULL,
-    amount character varying NOT NULL,
+    date_of_payment timestamp with time zone NOT NULL,
+    amount integer NOT NULL,
     sender_receiver character varying,
     comment text,
     images character varying[],
-    id integer NOT NULL
+    id integer NOT NULL,
+    incoming boolean NOT NULL
 );
 
 
@@ -546,6 +547,7 @@ INSERT INTO public.manager (first_name, second_name, phone, email, password, id)
 -- Data for Name: news; Type: TABLE DATA; Schema: public; Owner: user
 --
 
+INSERT INTO public.news (id, title, text, publish_date, images) VALUES (2, '1', '<p>212121</p>', '2025-07-03 14:45:11.08662+00', NULL);
 
 
 --
@@ -558,6 +560,7 @@ INSERT INTO public.manager (first_name, second_name, phone, email, password, id)
 -- Data for Name: pet; Type: TABLE DATA; Schema: public; Owner: user
 --
 
+INSERT INTO public.pet (status_id, name, gender, sterilized, type_id, description, year_birth, in_shelter_from, images, id) VALUES (1, '1', 'unknown', true, 1, NULL, NULL, NULL, NULL, 5);
 
 
 --
@@ -570,18 +573,22 @@ INSERT INTO public.manager (first_name, second_name, phone, email, password, id)
 -- Data for Name: petStatus; Type: TABLE DATA; Schema: public; Owner: user
 --
 
+INSERT INTO public."petStatus" (name, id) VALUES ('дома', 1);
 
 
 --
 -- Data for Name: petType; Type: TABLE DATA; Schema: public; Owner: user
 --
 
+INSERT INTO public."petType" (name, id) VALUES ('кошка', 1);
+INSERT INTO public."petType" (name, id) VALUES ('собака', 2);
 
 
 --
 -- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: user
 --
 
+INSERT INTO public.transaction (date_of_payment, amount, sender_receiver, comment, images, id, incoming) VALUES ('2025-07-03 17:46:13.144846+00', 21, NULL, NULL, NULL, 11, false);
 
 
 --
@@ -622,7 +629,7 @@ SELECT pg_catalog.setval('public."newsContents_id_seq"', 1, false);
 -- Name: news_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user
 --
 
-SELECT pg_catalog.setval('public.news_id_seq', 1, false);
+SELECT pg_catalog.setval('public.news_id_seq', 2, true);
 
 
 --
@@ -636,21 +643,21 @@ SELECT pg_catalog.setval('public."petContent_id_seq"', 1, false);
 -- Name: petStatus_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user
 --
 
-SELECT pg_catalog.setval('public."petStatus_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."petStatus_id_seq"', 1, true);
 
 
 --
 -- Name: petType_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user
 --
 
-SELECT pg_catalog.setval('public."petType_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."petType_id_seq"', 2, true);
 
 
 --
 -- Name: pet_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user
 --
 
-SELECT pg_catalog.setval('public.pet_id_seq', 1, false);
+SELECT pg_catalog.setval('public.pet_id_seq', 5, true);
 
 
 --
@@ -664,7 +671,6 @@ SELECT pg_catalog.setval('public."transactionContent_id_seq"', 1, false);
 -- Name: transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user
 --
 
-SELECT pg_catalog.setval('public.transaction_id_seq', 1, false);
 
 
 --
