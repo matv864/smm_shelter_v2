@@ -1,1 +1,8 @@
-from src.admin.models.manager import Manager as Manager
+from src.admin.models import (
+    ManagerAdmin,
+    NewsAdmin,
+    PetAdmin,
+    TransactionAdmin,
+    PetStatusAdmin,
+    PetTypeAdmin,
+)
