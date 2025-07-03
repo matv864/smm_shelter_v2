@@ -37,6 +37,7 @@ class PetAdmin(CustomModelAdmin):
     search_fields = (
         "name", "gender", "sterilized"
     )
+    raw_id_fields = ("status_id", "type_id")
 
 
     fieldsets = (
@@ -44,6 +45,8 @@ class PetAdmin(CustomModelAdmin):
             None,
             {
                 "fields": (
+                    "status",
+                    "type",
                     "name",
                     "gender",
                     "description",
@@ -55,6 +58,17 @@ class PetAdmin(CustomModelAdmin):
     )
     formfield_overrides = {  # noqa: RUF012
         "name": (WidgetType.Input, {"required": True}),
+        "gender": (
+            WidgetType.Select,
+            {
+                "required": True,
+                "options": [
+                    {"label": "мальчик", "value": "мальчик"},
+                    {"label": "девочка", "value": "девочка"},
+                    {"label": "неизвестно", "value": "неизвестно"},
+                ],
+            },
+        ),
         "description": (WidgetType.RichTextArea, {"required": False}),
         "sterilized": (WidgetType.Checkbox, {"required": False, "default": False}),
         "images": (WidgetType.Upload, {"required": False, "multiple": True}),

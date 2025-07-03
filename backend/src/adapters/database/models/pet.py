@@ -12,14 +12,14 @@ class Pet(Base):
 
     status_id: Mapped[str] = mapped_column(ForeignKey("petStatus.id"))
     status = relationship("PetStatus", lazy="selectin")
+    
+    type_id: Mapped[str] = mapped_column(ForeignKey("petType.id"))
+    type = relationship("PetType", lazy="selectin")
 
     name: Mapped[str]
 
     gender: Mapped[GenderEnum] = mapped_column(default=GenderEnum.unknown)
     sterilized: Mapped[bool] = mapped_column(default=False)
-
-    type_id: Mapped[str] = mapped_column(ForeignKey("petType.id"))
-    type = relationship("PetType", lazy="selectin")
 
     description: Mapped[str] = mapped_column(Text, nullable=True)
 
