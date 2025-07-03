@@ -1,17 +1,21 @@
-from datetime import date
+from datetime import datetime
 
-from sqlalchemy import ForeignKey, String, Text
+from sqlalchemy import ForeignKey, String, Text, TIMESTAMP
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from src.utils.time import utc_signed_now
 from .base import Base, BaseContent
 
 
 class Transaction(Base):
     __tablename__ = "transaction"
 
-    date_of_payment: Mapped[date] = mapped_column(default=date.today())
+    date_of_payment: Mapped[datetime] = mapped_column(
+        TIMESTAMP(timezone=True), default=utc_signed_now
+    )
 
+    incoming: Mapped[bool] = mapped_column(default=False)
     amount: Mapped[int]
     sender_receiver: Mapped[str] = mapped_column(nullable=True, default=None)
     comment: Mapped[str] = mapped_column(Text, nullable=True, default=None)

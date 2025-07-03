@@ -12,7 +12,7 @@ from src.schemas.admin.transaction import (
 
 
 @register(Transaction)
-class NewsAdmin(CustomModelAdmin):
+class TransactionAdmin(CustomModelAdmin):
     Transaction.__name__ = verbose_name = verbose_name_plural = "Транзакции"
     
     schemaCreate = TransactionCreate
@@ -30,11 +30,30 @@ class NewsAdmin(CustomModelAdmin):
 
     model_repository = TransactionRepository
 
-    list_display = ("amount", "sender_receiver", "comment")
-    list_display_links = ("amount", "sender_receiver")
-    list_filter = ("amount", "sender_receiver", "comment")
+    list_display = (
+        "incoming",
+        "amount",
+        "sender_receiver",
+        "comment"
+    )
+    list_display_links = (
+        "amount",
+        "sender_receiver"
+    )
+    list_filter = (
+        "incoming",
+        "amount",
+        "sender_receiver",
+        "comment",
+    )
 
-    search_fields = ("amount", "sender_receiver", "comment")
+    search_fields = (
+        "amount",
+        "sender_receiver",
+        "comment"
+    )
+    
+    readonly_fields = ("date_of_payment",)
 
     fieldsets = (
         (
@@ -43,6 +62,7 @@ class NewsAdmin(CustomModelAdmin):
                 "fields": (
                     "date_of_payment",
                     "amount",
+                    "incoming",
                     "sender_receiver",
                     "comment",
                     "images",
@@ -51,9 +71,8 @@ class NewsAdmin(CustomModelAdmin):
         ),
     )
     formfield_overrides = {  # noqa: RUF012
-        "date_of_payment": (WidgetType.DateTimePicker, {"required": False}),
         "amount": (WidgetType.InputNumber, {"required": True}),
-        "title": (WidgetType.Input, {"required": True}),
+        "incoming": (WidgetType.Checkbox, {"required": False, "default": False}),
         "sender_receiver": (WidgetType.Input, {"required": False}),
         "comment": (WidgetType.RichTextArea, {"required": False}),
         "images": (WidgetType.Upload, {"required": False, "multiple": True}),
