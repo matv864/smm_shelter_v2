@@ -4,7 +4,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 
-from src.api import main_router
+from src.api import main_api_router
 
 from src.settings import settings
 from src.utils.exceptions import (
@@ -31,7 +31,7 @@ app.add_middleware(
 
 app.mount(settings.ADMIN_PATH, admin_app, "admin panel")
 
-app.include_router(main_router)
+app.include_router(main_api_router)
 
 
 @app.exception_handler(ResultNotFound)

@@ -1,6 +1,6 @@
-from .router import main_router
+from .router import main_api_router
 
 
 __all__ = [
-    "main_router",
+    "main_api_router",
 ]
