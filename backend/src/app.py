@@ -1,16 +1,11 @@
 from fastadmin import fastapi_app as admin_app
-from fastapi import APIRouter, FastAPI, Request
+from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 
-from src.api import (
-    healthcheck_router,
-)
-# from src.api.feedbacks import feedbacks_router
-# from src.api.manager import managers_router
-# from src.api.pick_up_points import pick_up_points_router
-# from src import logging_aspects as logging_aspects
+from src.api import main_router
+
 from src.settings import settings
 from src.utils.exceptions import (
     AccessDenied,
@@ -24,7 +19,7 @@ from src.utils.exceptions import (
 )
 
 app = FastAPI(
-    title="zooprim API",
+    title="zooprim backend",
 )
 
 app.add_middleware(
@@ -36,20 +31,7 @@ app.add_middleware(
 
 app.mount(settings.ADMIN_PATH, admin_app, "admin panel")
 
-main_app_router = APIRouter(prefix="/api")
-
-# main_app_router.include_router(authentication_router, tags=["Authentication"])
-# main_app_router.include_router(news_router, tags=["News"])
-# main_app_router.include_router(feedbacks_router, tags=["Feedbacks"])
-# main_app_router.include_router(store_router, tags=["Store"])
-# main_app_router.include_router(client_router, tags=["Client"])
-# main_app_router.include_router(order_router, tags=["Order"])
-# main_app_router.include_router(managers_router, tags=["Manager"])
-# main_app_router.include_router(pick_up_points_router, tags=["PickUpPoints"])
-# main_app_router.include_router(manufactures_router, tags=["Manufactures"])
-
-app.include_router(healthcheck_router, tags=["Health"])
-app.include_router(main_app_router)
+app.include_router(main_router)
 
 
 @app.exception_handler(ResultNotFound)
