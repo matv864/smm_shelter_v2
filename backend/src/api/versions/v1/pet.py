@@ -15,11 +15,12 @@ async def get_pets(
     page: Annotated[int, Query()] = 1,
     limit: Annotated[int, Query()] = 20,
 ):
-    return await PetService(uow).get_pets(
-        type_of_pet=type_of_pet,
-        page=page,
-        limit=limit,
-    )
+    async with uow:
+        return await PetService(uow).get_pets(
+            type_of_pet=type_of_pet,
+            page=page,
+            limit=limit,
+        )
 
 
 @pet_router.get(
@@ -29,6 +30,7 @@ async def get_one_pet(
     uow: Annotated[UnitOfWork, Depends(UnitOfWork)],
     id: Annotated[int, Path()],
 ):
-    return await PetService(uow).get_one_pet(
-        id=id
-    )
+    async with uow:
+        return await PetService(uow).get_one_pet(
+            id=id
+        )

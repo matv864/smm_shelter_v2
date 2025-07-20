@@ -14,10 +14,11 @@ async def get_news(
     page: Annotated[int, Query()] = 1,
     limit: Annotated[int, Query()] = 20,
 ):
-    return await NewsService(uow).get_news(
-        page=page,
-        limit=limit,
-    )
+    async with uow:
+        return await NewsService(uow).get_news(
+            page=page,
+            limit=limit,
+        )
 
 
 @news_router.get(
@@ -27,4 +28,5 @@ async def get_one_news(
     uow: Annotated[UnitOfWork, Depends(UnitOfWork)],
     id: Annotated[int, Path()],
 ):
-    return await NewsService(uow).get_one_news(id=id)
+    async with uow:
+        return await NewsService(uow).get_one_news(id=id)
