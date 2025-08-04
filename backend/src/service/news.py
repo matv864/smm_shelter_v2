@@ -17,7 +17,5 @@ class NewsService:
         )
     
     async def get_one_news(self, id: int):
-        return await self.uow.repositories.news.find_one(
-            News.id == id
-        )
+        return await self.uow.repositories.news.find_one(id=id)
 

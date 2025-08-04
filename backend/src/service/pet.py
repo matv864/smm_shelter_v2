@@ -14,7 +14,7 @@ class PetService:
         return await self.uow.repositories.pet.find_filtered_and_paginated(
             page=page,
             limit=limit,
-            type_id=type_of_pet
+            **(dict(type_id=type_of_pet) if type_of_pet is not None else dict())
         )
     
     async def get_one_pet(self, id: int):
